@@ -1,14 +1,22 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import TutorSignupForm from "./TutorSignupForm.jsx";
 
 
 import StudentSignupForm from "./StudentSignupForm.jsx";
 import SigninForm from "./SigninForm.jsx";
+import { useAuth } from "../contexts/AuthProvider.jsx";
 
 const Login = () => {
   const [signupType, setSignupType] = useState("STUDENT");
+
+  const navigate = useNavigate();
+  const { token } = useAuth();
+
+  useEffect(() => {
+    if (token) navigate('/student/home')
+  }, [token])
 
   return (
     <div
@@ -51,7 +59,7 @@ const Login = () => {
           <p class="text-body-secondary text-center">
             Glad to see you again! Login to your account below.
           </p>
-            <SigninForm />
+          <SigninForm />
         </div>
       </div>
     </div>

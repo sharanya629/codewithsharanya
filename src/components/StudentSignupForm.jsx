@@ -8,7 +8,7 @@ const StudentSignupForm = () => {
     fullName: "",
     email: "",
     phoneNo: "",
-    location:"",
+    location: "",
     password: "",
     confirmPassword: "",
   });
@@ -48,11 +48,9 @@ const StudentSignupForm = () => {
           setFormErrors({ ...formErrors, phoneNo: true });
         }
         break;
-        case "location":
+      case "location":
         setFormValues({ ...formValues, location: e.target.value });
-        
-break;
-        
+        break;
       case "password":
         setFormValues({ ...formValues, password: e.target.value });
         // if (pwdPattern.test(e.target.value)) {
@@ -89,7 +87,7 @@ break;
     console.log(formValues);
     if (!shouldEnableSubmitButton()) return;
     await signup({ ...formValues, role: "Student" })
-    navigate('/student/home')
+    alert('Signup Successful. Please login to continue.');
   }
 
   return (

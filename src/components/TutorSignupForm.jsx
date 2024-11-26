@@ -1,6 +1,8 @@
+import axios from "axios";
 import React, { useState } from "react";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../api/helper";
 
 const TutorSignupForm = () => {
   const [formValues, setFormValues] = useState({
@@ -100,11 +102,27 @@ const TutorSignupForm = () => {
     );
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formValues);
     if (!shouldEnableSubmitButton()) return;
-    navigate('/Tutor/FirstHome')
+    try {
+      await axios.post(`${BASE_URL}/tutors/signup`, {
+        user: {
+          name: formValues.fullName,
+          email: formValues.email,
+          mobile: formValues.phoneNo,
+          location: formValues.location,
+          password: formValues.confirmPassword,
+          role: 'Tutor'
+        },
+        subject: formValues.subject,
+        bio: formValues.bio,
+        tutionFee: formValues.tutionFee
+      })
+      alert('Signup Successful. Please login to continue.');
+    } catch (err) {
+      alert(err.message);
+    }
   }
 
   return (
